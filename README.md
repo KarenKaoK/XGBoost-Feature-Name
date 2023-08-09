@@ -12,7 +12,7 @@ How to access feature names in a trained XGB model ?
 這篇文章將紀錄如何通過 XGBoost 提供的方法來獲取已訓練模型中的特徵名稱，並附上 sample code (以 Kaggle titanic dataset 為例)。
 
 ## 訓練一個 XGBoost model 
-```
+```python
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -59,15 +59,16 @@ print("Accuracy:", accuracy)
 
 ## 儲存 weight 成為 pickle 檔案
 
-```
+```python
 import pickle
 with open('xgboost_model.pkl', 'wb') as file:
     pickle.dump(model, file)
 ```    
 
 ## 讀取 pickle 
-```
 
+
+```python
 import pickle
 
 # 從 Pickle 文件中載入模型
@@ -79,7 +80,7 @@ with open('xgboost_model.pkl', 'rb') as file:
 
 在 XGBoost 中，模型由許多樹（boosters）組成，每個樹都可以提供有關模型的一些信息。我們可以使用 get_booster() 方法從載入的模型中獲取 Booster 物件，然後通過查詢 feature_names 屬性，我們可以獲得模型中使用的特徵名稱。
 
-```
+```python
 clf = loaded_model.get_booster()
 print(clf.feature_names)   
 print(type(clf))
@@ -87,7 +88,7 @@ print(type(clf))
 
 會得到輸出:
 
-```
+```python
 ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked_1', 'Embarked_2']
 <class 'xgboost.core.Booster'>
 ```
